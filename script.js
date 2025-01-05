@@ -1,6 +1,54 @@
 // Variabile globale per il grafico delle medie campionarie
 let samplingChart;
 
+// Funzione per generare campioni empirici da una distribuzione teorica
+function generateEmpiricalData(values, probabilities, sampleSize) {
+    const empiricalData = [];
+    for (let i = 0; i < sampleSize; i++) {
+        const random = Math.random();
+        let cumulativeProbability = 0;
+        for (let j = 0; j < probabilities.length; j++) {
+            cumulativeProbability += probabilities[j];
+            if (random <= cumulativeProbability) {
+                empiricalData.push(values[j]);
+                break;
+            }
+        }
+    }
+    return empiricalData;
+}
+
+// Funzione per calcolare media e varianza dai dati simulati (empiriche)
+function calculateEmpiricalStats(data) {
+    let mean = 0;
+    let variance = 0;
+    const n = data.length;
+
+    // Calcolo della media empirica
+    data.forEach((value) => {
+        mean += value;
+    });
+    mean /= n;
+
+    // Calcolo della varianza empirica
+    data.forEach((value) => {
+        variance += Math.pow(value - mean, 2);
+    });
+    variance /= n;
+
+    return { mean, variance };
+}
+
+// Funzione per calcolare la media teorica
+function calculateTheoreticalMean(values, probabilities) {
+    return values.reduce((sum, val, i) => sum + val * probabilities[i], 0);
+}
+
+// Funzione per calcolare la varianza teorica
+function calculateTheoreticalVariance(values, probabilities, mean) {
+    return values.reduce((sum, val, i) => sum + probabilities[i] * Math.pow(val - mean, 2), 0);
+}
+
 // Funzione per generare campioni e calcolare medie campionarie
 function generateSamplingAverages(values, probabilities, m, n) {
     const sampleMeans = [];
@@ -26,7 +74,7 @@ function plotSamplingDistribution(sampleMeans, theoreticalMean, theoreticalVaria
         <strong>Sampling Distribution Statistics:</strong><br>
         <ul>
             <li>Empirical Mean of Sample Means: ${empiricalMean}</li>
-            <li>Theoretical Mean: ${theoreticalMean}</li>
+            <li>Theoretical Mean: ${theoreticalMean.toFixed(3)}</li>
             <li>Empirical Variance of Sample Means: ${empiricalVariance}</li>
             <li>Theoretical Variance of Sample Means: ${(theoreticalVariance / sampleMeans.length).toFixed(3)}</li>
         </ul>
@@ -39,7 +87,7 @@ function plotSamplingDistribution(sampleMeans, theoreticalMean, theoreticalVaria
 
     // Crea il nuovo grafico
     samplingChart = new Chart(ctx, {
-        type: 'histogram',
+        type: 'bar',
         data: {
             labels: sampleMeans,
             datasets: [
@@ -48,8 +96,7 @@ function plotSamplingDistribution(sampleMeans, theoreticalMean, theoreticalVaria
                     data: sampleMeans,
                     backgroundColor: 'rgba(75, 192, 192, 0.7)',
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                    binWidth: 0.1 // Regola la larghezza dei bin per il grafico a istogramma
+                    borderWidth: 1
                 }
             ]
         },
@@ -96,7 +143,7 @@ document.getElementById('dataForm').addEventListener('submit', function (event) 
 
     // Leggi il sample size e il numero di campioni
     const sampleSize = parseInt(document.getElementById('sampleSize').value, 10);
-    const numberOfSamples = 1000; // Puoi modificare questo valore
+    const numberOfSamples = parseInt(document.getElementById('numberOfSamples').value, 10);
 
     // Genera le medie campionarie
     const sampleMeans = generateSamplingAverages(values, probabilities, numberOfSamples, sampleSize);
