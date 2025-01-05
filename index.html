@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exploration of sampling distributions and their relationship with theoretical statistics.">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Sampling Distributions and Theoretical Statistics</title>
+</head>
+<body>
+    <header>
+        <h1>Sampling Distributions and Their Relationship with Theoretical Statistics</h1>
+    </header>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>This interactive tool explores the distribution of sample means obtained from a theoretical discrete distribution. It allows users to compare empirical and theoretical statistics such as mean and variance.</p>
+    </section>
+
+    <section>
+        <h2>Input Distribution Data</h2>
+        <form id="dataForm">
+            <div>
+                <label for="values">Values (comma-separated):</label>
+                <input type="text" id="values" placeholder="e.g., 0,1,2,3" required>
+            </div>
+            <div>
+                <label for="probabilities">Probabilities (comma-separated):</label>
+                <input type="text" id="probabilities" placeholder="e.g., 0.1,0.3,0.4,0.2" required>
+            </div>
+            <div>
+                <label for="sampleSize">Sample Size (n):</label>
+                <input type="number" id="sampleSize" value="20" required>
+            </div>
+            <div>
+                <label for="numberOfSamples">Number of Samples (m):</label>
+                <input type="number" id="numberOfSamples" value="1000" required>
+            </div>
+            <button type="submit">Generate and Plot</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Distribution Graphs</h2>
+        <div class="chart-container" style="position: relative; height:80%; width:80%;">
+            <canvas id="distributionChart"></canvas>
+        </div>
+        <div id="stats" style="margin-top: 20px; font-size: 16px; color: white;"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025, Sampling Distributions Research</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
