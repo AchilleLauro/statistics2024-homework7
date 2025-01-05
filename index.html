@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Exploration of sampling distributions and their relationship with theoretical statistics.">
+    <meta name="description" content="Exploration of sampling distributions and cryptographic properties.">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <title>Sampling Distributions and Theoretical Statistics</title>
+    <title>Sampling Distributions and Cryptographic Properties</title>
 </head>
 <body>
     <header>
-        <h1>Sampling Distributions and Their Relationship with Theoretical Statistics</h1>
+        <h1>Sampling Distributions and Cryptographic Properties</h1>
     </header>
 
     <section>
         <h2>Introduction</h2>
-        <p>This interactive tool explores the distribution of sample means obtained from a theoretical discrete distribution. It allows users to compare empirical and theoretical statistics such as mean and variance.</p>
+        <p>This interactive tool explores two concepts:</p>
+        <ul>
+            <li>The distribution of sample means obtained from a theoretical discrete distribution.</li>
+            <li>The cryptographic properties of distributions based on modular arithmetic.</li>
+        </ul>
     </section>
 
+    <!-- Original Section for Sampling Distributions -->
     <section>
         <h2>Input Distribution Data</h2>
         <form id="dataForm">
@@ -51,10 +56,18 @@
         <div id="stats" style="margin-top: 20px; font-size: 16px; color: white;"></div>
     </section>
 
+    <!-- New Section for Cryptographic Distributions -->
+    <section>
+        <h2>Cryptographic Distributions</h2>
+        <p>This section generates and analyzes distributions of \( Y = g^U \mod n \) for different values of \( g \) and \( n \).</p>
+        <div id="cryptoGraphs"></div>
+    </section>
+
     <footer>
-        <p>&copy; 2025, Sampling Distributions Research</p>
+        <p>&copy; 2025, Sampling and Cryptographic Research</p>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
+
