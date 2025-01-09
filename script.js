@@ -18,7 +18,7 @@ function generateEmpiricalData(values, probabilities, sampleSize) {
     return empiricalData;
 }
 
-// Funzione per calcolare media e varianza dai dati simulati (empiriche)
+// Funzione per calcolare media e varianza dai dati simulati
 function calculateEmpiricalStats(data) {
     let mean = 0;
     let variance = 0;
@@ -80,12 +80,10 @@ function plotSamplingDistribution(sampleMeans, theoreticalMean, theoreticalVaria
         </ul>
     `;
 
-    // Distruggi il grafico precedente, se esiste
     if (samplingChart) {
         samplingChart.destroy();
     }
 
-    // Crea il nuovo grafico
     samplingChart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -126,32 +124,25 @@ function plotSamplingDistribution(sampleMeans, theoreticalMean, theoreticalVaria
     });
 }
 
-// Event listener per il form modificato
 document.getElementById('dataForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    // Leggi i valori e le probabilità inseriti
     const values = document.getElementById('values').value.split(',').map(v => parseFloat(v.trim()));
     const probabilities = document.getElementById('probabilities').value.split(',').map(p => parseFloat(p.trim()));
 
-    // Controlla che le probabilità siano valide
     const totalProbability = probabilities.reduce((sum, p) => sum + p, 0);
     if (Math.abs(totalProbability - 1) > 0.001) {
         alert('Le probabilità teoriche devono sommare a 1. Correggi i dati inseriti.');
         return;
     }
 
-    // Leggi il sample size e il numero di campioni
     const sampleSize = parseInt(document.getElementById('sampleSize').value, 10);
     const numberOfSamples = parseInt(document.getElementById('numberOfSamples').value, 10);
 
-    // Genera le medie campionarie
     const sampleMeans = generateSamplingAverages(values, probabilities, numberOfSamples, sampleSize);
 
-    // Calcola le statistiche teoriche
     const theoreticalMean = calculateTheoreticalMean(values, probabilities);
     const theoreticalVariance = calculateTheoreticalVariance(values, probabilities, theoreticalMean);
 
-    // Traccia il grafico delle medie campionarie
     plotSamplingDistribution(sampleMeans, theoreticalMean, theoreticalVariance);
 });
